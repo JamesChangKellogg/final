@@ -4,38 +4,38 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Add options
     document.querySelector('.options').innerHTML =`
     <div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="industry" >Select industry</label>
-    </div>
-    <div class="w-1/2">
-        <select name="industry" id="industry" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="General">General</option>
-            <option value="EdTech">EdTech</option>
-            <option value="FinTech">FinTech</option>
-            <option value="HealthTech">HealthTech</option>
-            <option value="Hardware">Hardware</option>
-            <option value="Software">Software</option>
-        </select>
-    </div>
+        <div class="w-1/2 text-right">
+        <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
+            for="industry" >Select industry</label>
+        </div>
+        <div class="w-1/2">
+            <select name="industry" id="industry" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
+                <option value="Select">- Select -</option>
+                <option value="General">General</option>
+                <option value="EdTech">EdTech</option>
+                <option value="FinTech">FinTech</option>
+                <option value="HealthTech">HealthTech</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+            </select>
+        </div>
     </div>
 
     <div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="industry" >Select role</label>
-    </div>
-        <div class="w-1/2">
-        <select name="role" id="role" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="Business Operations">Business Operations</option>
-            <option value="Corporate Strategy">Corporate Strategy</option>
-            <option value="Product Management">Product Management</option>
-            <option value="Product Marekting">Product Marketing</option>
-            <option value="General">General</option>
-        </select>
-    </div>
+        <div class="w-1/2 text-right">
+        <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
+            for="industry" >Select role</label>
+        </div>
+            <div class="w-1/2">
+            <select name="role" id="role" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
+                <option value="Select">- Select -</option>
+                <option value="Business Operations">Business Operations</option>
+                <option value="Corporate Strategy">Corporate Strategy</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Product Marekting">Product Marketing</option>
+                <option value="General">General</option>
+            </select>
+        </div>
     </div>
 
 
@@ -80,10 +80,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="startups" >Are you interested in forming startups?</label>
+        for="entrepreneur" >Do you aspire to be an entrepreneur?</label>
         </div>
             <div class="w-1/2">
-        <select name="startups" id="startups"class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6"> 
+        <select name="entrepreneur" id="entrepreneur"class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6"> 
             <option value="Select">- Select -</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
@@ -110,8 +110,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
         let d = document.getElementById("geography")
         let geography = d.options[d.selectedIndex].text
 
-        let e = document.getElementById("startups")
-        let startups = e.options[e.selectedIndex].text
+        let e = document.getElementById("entrepreneur")
+        let entrepreneur = e.options[e.selectedIndex].text
 
         // Create preferences object
         let preferences = {
@@ -119,7 +119,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
             role: role,
             size: size,
             geography, geography,
-            startups: startups
+            entrepreneur: entrepreneur
         }
 
         // // Use update method to update empty preferences object (map) in firestore
