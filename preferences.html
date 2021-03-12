@@ -10,107 +10,19 @@
     <h1 class="text-6xl font-bold text-center mt-16 mb-12 text-purple-500">Kellogg Buddies</h1>
 
 <!-- Welcome header -->
-</div>   
-    <p class="flex justify-center text-2xl italic m-10">Welcome, Adrian! Tell us about yourself</p>
+</div class="welcome flex justify-center text-2xl italic m-10">   
 <div>
 
-<!-- Select industry -->
-<div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="industry" >Select industry</label>
-    </div>
-    <div class="w-1/2">
-        <select name="industry" id="industry" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="General">General</option>
-            <option value="EdTech">EdTech</option>
-            <option value="FinTech">FinTech</option>
-            <option value="HealthTech">HealthTech</option>
-            <option value="Hardware">Hardware</option>
-            <option value="Software">Software</option>
-        </select>
-    </div>
-</div>
-
-<!-- Select role -->
-<div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="industry" >Select role</label>
-    </div>
-        <div class="w-1/2">
-        <select name="role" id="role" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="Business Operations">Business Operations</option>
-            <option value="Corporate Strategy">Corporate Strategy</option>
-            <option value="Product Management">Product Management</option>
-            <option value="Product Marekting">Product Marketing</option>
-            <option value="General">General</option>
-        </select>
-    </div>
-</div>
-
-<!-- Select size -->
-<div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="size" >Select company size</label>
-    </div>
-    <div class="size w-1/2">
-        <select name="size" id="size" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="0-10">0 - 10</option>
-            <option value="11-100">11 - 100</option>
-            <option value="101-500">101 - 500</option>
-            <option value="501-1000">501 - 1000</option>
-            <option value="1000-10000">1,001 - 10,000</option>
-            <option value="10000+">> 10,000</option>
-        </select>
-    </div>
-</div>
-
-<!-- Select geography -->
-<div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2"
-        for="geography" >Select geography</label>
-        </div>
-            <div class="w-1/2">
-        <select name="geography" id="geography" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
-            <option value="Select">- Select -</option>
-            <option value="USA-West">USA-West</option>
-            <option value="USA-Midwest">USA-Midwest</option>
-            <option value="USA-South">USA-South</option>
-            <option value="USA-East">USA-East</option>
-            <option value="Asia">Africa</option>
-            <option value="Europe">Europe</option>
-            <option value="Asia">Asia</option>
-            <option value="Others">Others</option>
-        </select>
-    </div>
-</div>
-
-<!-- Select startup interest? -->
-<div class="flex justify-center h-200 ml-2 text-lg">
-    <div class="w-1/2 text-right">
-    <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="startups" >Are you interested in forming startups?</label>
-        </div>
-            <div class="w-1/2">
-        <select name="startups" id="startups"class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6"> 
-            <option value="Select">- Select -</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-    </div>
+<!-- Options -->
+<div class = "options"> 
+    <!-- Javascript puts stuff here -->
 </div>
 
 <!-- Submit Button -->
 <div class = "button md:flex justify-center">
         <button class="text-2xl m-6 text-white-700 bg-purple-300 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500" id="preferences">
             <a href=preferences.html>
-                Submit and see matches
+                Submit and see matches!
             </a>
         </button>
 </div>
@@ -141,6 +53,6 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-  <script src="preferences.js"></script>
+  <script src="preferences-hard.js"></script>
 </body>
 </html>
