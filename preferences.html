@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-    <form netlify>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kellogg Buddies: Preference</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
 </head>
-<h1 class="text-6xl font-bold text-center mt-16 mb-12 text-purple-500">Kellogg Buddies</h1>
+<body>
+    <h1 class="text-6xl font-bold text-center mt-16 mb-12 text-purple-500">Kellogg Buddies</h1>
+
+<!-- Welcome header -->
 </div>   
-<p class="flex justify-center text-2xl italic m-10">Welcome, Adrian! Tell us about yourself</p>
+    <p class="flex justify-center text-2xl italic m-10">Welcome, Adrian! Tell us about yourself</p>
 <div>
 
+<!-- Select industry -->
 <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
@@ -30,14 +33,14 @@
     </div>
 </div>
 
-
+<!-- Select role -->
 <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
-        for="industry" >Select function</label>
+        for="industry" >Select role</label>
     </div>
         <div class="w-1/2">
-        <select name="function" id="function" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
+        <select name="role" id="role" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
             <option value="Select">- Select -</option>
             <option value="Business Operations">Business Operations</option>
             <option value="Corporate Strategy">Corporate Strategy</option>
@@ -48,12 +51,13 @@
     </div>
 </div>
 
+<!-- Select size -->
 <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
         for="size" >Select company size</label>
     </div>
-            <div class="w-1/2">
+    <div class="size w-1/2">
         <select name="size" id="size" class="md:p-2 w-64 border border-gray-400 rounded shadow-xl ml-6">
             <option value="Select">- Select -</option>
             <option value="0-10">0 - 10</option>
@@ -66,6 +70,7 @@
     </div>
 </div>
 
+<!-- Select geography -->
 <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2"
@@ -86,6 +91,7 @@
     </div>
 </div>
 
+<!-- Select startup interest? -->
 <div class="flex justify-center h-200 ml-2 text-lg">
     <div class="w-1/2 text-right">
     <label class = "md:block mt-4 ml-2 font-bold px-4 py-2 align-middle"
@@ -100,3 +106,41 @@
     </div>
 </div>
 
+<!-- Submit Button -->
+<div class = "button md:flex justify-center">
+        <button class="text-2xl m-6 text-white-700 bg-purple-300 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500" id="preferences">
+            <a href=preferences.html>
+                Submit and see matches
+            </a>
+        </button>
+</div>
+
+      <!-- Put the Firebase config here -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+
+  <!-- FirebaseUI Auth -->
+  <!-- https://firebaseopensource.com/projects/firebase/firebaseui-web/ -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyAqL-ZHu1F-zkQiOw8sMA1Tpsk7YgS0o6E",
+    authDomain: "kelloggbuddies.firebaseapp.com",
+    projectId: "kelloggbuddies",
+    storageBucket: "kelloggbuddies.appspot.com",
+    messagingSenderId: "339327388559",
+    appId: "1:339327388559:web:6a53f95fde1d078fc1d9fa"
+  };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="preferences.js"></script>
+</body>
+</html>

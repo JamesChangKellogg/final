@@ -7,12 +7,17 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // ❓ Do we need to create all the fields now and set them later❓
         db.collection('users').doc(user.uid).set({
             name: user.displayName,
-            email: user.email
+            email: user.email,
+            preferences: {}
         })
+
+        // Display user greeting
+        document.querySelector('.welcome').innerHTML = `
+        <div class ="text-purple-500 font-6xl font-bold"> Welcome to Kellogg Buddies, ${user.displayName}!</div>
+        `
         
         // Create sign out button
         document.querySelector('.sign-in-or-sign-out').innerHTML = `
-        <div class ="text-purple-500 font-6xl font-bold"> Hi ${user.displayName}!</div>
         <button class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-xl sign-out">Sign Out</button>
         `
         // Sign out listener & logout workflow
@@ -49,6 +54,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
             signInSuccessUrl: 'homepage.html'
         }
         ui.start('.sign-in-or-sign-out', authUIConfig)
+
+        // Display user greeting
+        document.querySelector('.welcome').innerHTML = `
+        <div class ="text-purple-500 font-6xl font-bold"> Kellogg Buddies!</div>
+        `
 
         // Add "Description of Kellogg Buddies and sample profiles for non-logged in users"
         document.querySelector('.homepage').innerHTML = `
