@@ -8,7 +8,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         db.collection('users').doc(user.uid).set({
             name: user.displayName,
             email: user.email,
-            preferences: {}
+            preferences: ``
         })
 
         // Display user greeting
