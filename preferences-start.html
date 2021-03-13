@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kellogg Buddies: Preferences</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1 class="text-6xl font-bold text-center mt-16 mb-12 text-purple-500">Kellogg Buddies</h1>
+
+<!-- Welcome header -->
+<div class="welcome">   
+</div>
+
+<!-- Filter Buttons -->
+<div class="filters md:flex justify-center space-x-2 md:space-y-0 space-y-2">
+    <div class="text-center text-xl text-purple-500 px-4 md:py-2">Factors:</div>
+    <div class="text-center"><a href="#" id="industry" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Industry</a></div>
+    <div class="text-center"><a href="#" id="role" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Role</a></div>
+    <div class="text-center"><a href="#" id="size" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Company size</a></div>
+    <div class="text-center"><a href="#" id="geography" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Geography</a></div>
+    <div class="text-center"><a href="#" id="entrepreneur" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Entrepreneur</a></div>
+  </div>
+  
+<!-- Options -->
+<div class = "options md:flex justify-center m-4"> 
+    <!-- Javascript puts stuff here -->
+</div>
+
+<!-- Submit Preferences Button -->
+<div class = "button md:flex justify-center m-4">
+        <button class="text-2xl m-6 text-white-700 bg-purple-300 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500" id="preferences">
+                Submit interest
+        </button>
+</div>
+
+<!-- See Matches Button -->
+<div class = "seeMatches md:flex justify-center m-4">
+</div>
+
+<!-- Put the Firebase config here -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+
+  <!-- FirebaseUI Auth -->
+  <!-- https://firebaseopensource.com/projects/firebase/firebaseui-web/ -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyAqL-ZHu1F-zkQiOw8sMA1Tpsk7YgS0o6E",
+    authDomain: "kelloggbuddies.firebaseapp.com",
+    projectId: "kelloggbuddies",
+    storageBucket: "kelloggbuddies.appspot.com",
+    messagingSenderId: "339327388559",
+    appId: "1:339327388559:web:6a53f95fde1d078fc1d9fa"
+  };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="preferences.js"></script>
+</body>
+</html>
