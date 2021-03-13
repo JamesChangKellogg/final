@@ -1,7 +1,7 @@
 // Add see matches button
 function seeMatches(){
     document.querySelector('.seeMatches').innerHTML = `
-    <button class="text-2xl m-6 text-white-700 bg-purple-300 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500" id="seeMatches">
+    <button class="text-2xl m-6 text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500" id="seeMatches">
         <a href=matches.html>
         See matches!
         </a>
@@ -13,10 +13,8 @@ function seeMatches(){
 firebase.auth().onAuthStateChanged(async function(user) {
     let submitPreferences = document.querySelector(`#savePreferences`)
     submitPreferences.addEventListener('click', async function(event) {
-        console.log("success")
         // Get firebase
         let db = firebase.firestore()
-
         // Create variables to submit for preferences
         let a = document.getElementById("industry")
         let industry = a.options[a.selectedIndex].text
@@ -35,6 +33,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
         db.collection('preferences').doc(user.uid).set({
             userID: user.uid,
+            name: user.displayName,
+            email: user.email,
             industry: industry,
             role: role,
             size: size,
@@ -50,14 +50,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // Create filter buttons
         document.querySelector('.filters').innerHTML = `
         <div class="text-center text-xl text-purple-500 px-4 md:py-2">Factors:</div>
-        <div class="text-center"><a href="#" id="industry-factor" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Industry</a></div>
-        <div class="text-center"><a href="#" id="role-factor" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Role</a></div>
-        <div class="text-center"><a href="#" id="size-factor" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Size</a></div>
-        <div class="text-center"><a href="#" id="geography-factor" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Geography</a></div>
-        <div class="text-center"><a href="#" id="entrepreneur-factor" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Entrepreneur</a></div>    
+        <div class="text-center"><a href="#" id="industry-factor" class="filter-button inline-block border-2 bg-purple-900 border-purple-500 text-white rounded px-4 py-2">Industry</a></div>
+        <div class="text-center"><a href="#" id="role-factor" class="filter-button inline-block border-2 bg-purple-900 border-purple-500 text-white rounded px-4 py-2">Role</a></div>
+        <div class="text-center"><a href="#" id="size-factor" class="filter-button inline-block border-2 bg-purple-900 border-purple-500 text-white rounded px-4 py-2">Size</a></div>
+        <div class="text-center"><a href="#" id="geography-factor" class="filter-button inline-block border-2 bg-purple-900 border-purple-500 text-white rounded px-4 py-2">Geography</a></div>
+        <div class="text-center"><a href="#" id="entrepreneur-factor" class="filter-button inline-block border-2 bg-purple-900 border-purple-500 text-white rounded px-4 py-2">Entrepreneur</a></div>    
         `
 
-        // Industry filter workflow 
+        // 1️⃣ Industry filter workflow 
         let industryButton = document.querySelector('#industry-factor')
         industryButton.addEventListener('click', async function(event) {
             event.preventDefault()
@@ -67,9 +67,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 matchingFactor: `industry`,
             })
             seeMatches()
+
+            // Change opacity class to indicate if button is 'pressed'
+            if (industryButton.classList.contains('opacity-20')) {
+                industryButton.classList.remove('opacity-20')
+            } else {
+                industryButton.classList.add('opacity-20')
+            }
         })
 
-        // Role filter workflow 
+        // 2️⃣ Role filter workflow 
         let roleButton = document.querySelector('#role-factor')
         roleButton.addEventListener('click', async function(event) {
             event.preventDefault()
@@ -79,9 +86,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 matchingFactor: `role`,
             })
             seeMatches()
+            
+            // Change opacity class to indicate if button is 'pressed'
+            if (roleButton.classList.contains('opacity-20')) {
+                roleButton.classList.remove('opacity-20')
+            } else {
+                roleButton.classList.add('opacity-20')
+            }
         })
 
-        // Size filter workflow 
+        // 3️⃣ Size filter workflow 
         let sizeButton = document.querySelector('#size-factor')
         sizeButton.addEventListener('click', async function(event) {
             event.preventDefault()
@@ -91,9 +105,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 matchingFactor: `size`,
             })
             seeMatches()
+
+            // Change opacity class to indicate if button is 'pressed'
+            if (sizeButton.classList.contains('opacity-20')) {
+                sizeButton.classList.remove('opacity-20')
+            } else {
+                sizeButton.classList.add('opacity-20')
+            }
         })
 
-        // Geography filter workflow 
+        // 4️⃣ Geography filter workflow 
         let geographyButton = document.querySelector('#geography-factor')
         geographyButton.addEventListener('click', async function(event) {
             event.preventDefault()
@@ -103,9 +124,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 matchingFactor: `geography`,
             })
             seeMatches()
+
+            // Change opacity class to indicate if button is 'pressed'
+            if (geographyButton.classList.contains('opacity-20')) {
+                geographyButton.classList.remove('opacity-20')
+            } else {
+                geographyButton.classList.add('opacity-20')
+            }
         })
 
-        // Entrepreneur filter workflow 
+        // 5️⃣ Entrepreneur filter workflow 
         let entrepreneurButton = document.querySelector('#entrepreneur-factor')
         entrepreneurButton.addEventListener('click', async function(event) {
             event.preventDefault()
@@ -115,6 +143,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 matchingFactor: `entrepreneur`,
             })
             seeMatches()
+
+            // Change opacity class to indicate if button is 'pressed'
+            if (entrepreneurButton.classList.contains('opacity-20')) {
+                entrepreneurButton.classList.remove('opacity-20')
+            } else {
+                entrepreneurButton.classList.add('opacity-20')
+            }
         })
     // End primary button event listener
     })
