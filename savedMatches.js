@@ -10,7 +10,7 @@ function renderSavedMatch(matchID, matchName, matchEmail, matchIndustry, matchRo
         <div class="m-1 text-left">Geo: ${matchGeography}</div>
         <div class="m-1 text-left">Entrepreneur?: ${matchEntrepreneur}</div>
         <button class="save-button-${matchID} text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500">
-            Remove Saved Match
+            Remove Saved Buddy
         </button>
     </div>
     `)
@@ -49,16 +49,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
             renderSavedMatch(savedID, savedName, savedEmail, savedIndustry, 
                 savedRole, savedSize, savedGeography, savedEntrepreneur)
             
-            // 🛑 🛑 Work in progress to remove saved matches
-            // // Add click listener for save matches: savedId = matchID (from preferences.js)
-            // let unsaveButton = document.querySelector(`.save-button-${savedID}`)
-            // unsaveButton.addEventListener('click', async function(event) {
-            //     event.preventDefault()
-            //     let db = firebase.firestore()
-            //     await db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
-            //     alert(`${savedName} was removed.`)
-            //     saveButtonClicked(savedID) 
-            // }) // close click listener
+            // 🛑 🛑 Work in progress: NOT DELETING SAVED MATCH FROM FIREBASE
+            // // Add click listener for save matches: savedID = matchID (from preferences.js)
+            let unsaveButton = document.querySelector(`.save-button-${savedID}`)
+            unsaveButton.addEventListener('click', async function(event) {
+                event.preventDefault()
+                let db = firebase.firestore()
+                await db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+                saveButtonClicked(savedID)
+            }) // close event listener
+
         } // close for loops
 
 }) // end auth listener
