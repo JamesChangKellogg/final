@@ -36,7 +36,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // For loop to go through docs and get data
         for (let i=0; i<savedMatchesDocs.length; i++) {
             let saved = savedMatchesDocs[i].data() // saved-level data
-            let savedID = saved.matchUserID
+            let savedID = saved.matchID
             let savedName = saved.matchName 
             let savedEmail = saved.matchEmail 
             let savedIndustry = saved.matchIndustry 
@@ -49,13 +49,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
             renderSavedMatch(savedID, savedName, savedEmail, savedIndustry, 
                 savedRole, savedSize, savedGeography, savedEntrepreneur)
             
-            // 🛑 🛑 Work in progress: NOT DELETING SAVED MATCH FROM FIREBASE
             // // Add click listener for save matches: savedID = matchID (from preferences.js)
             let unsaveButton = document.querySelector(`.save-button-${savedID}`)
             unsaveButton.addEventListener('click', async function(event) {
                 event.preventDefault()
                 let db = firebase.firestore()
-                await db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+                db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+                alert(`${savedName} is removed!`)
                 saveButtonClicked(savedID)
             }) // close event listener
 
