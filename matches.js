@@ -16,6 +16,11 @@ function renderMatch(matchID, matchName, matchEmail, matchIndustry, matchRole, m
     `)
 }
 
+// function to change opacity of saved matches
+function saveButtonClicked(matchID) { 
+    document.querySelector(`.save-button-${matchID}`).classList.add('opacity-20')
+}
+
 
 // Event listener for authenticated user
 firebase.auth().onAuthStateChanged(async function(user) {
@@ -68,9 +73,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                      matchIndustry: matchIndustry, 
                      matchRole: matchRole,
                      matchSize: matchSize,
-                     matchGeogra: matchGeography,
+                     matchGeography: matchGeography,
                      matchEntrepreneur: matchEntrepreneur
                  })
+                 alert(`${matchName} was saved!`)
+                 saveButtonClicked(matchID) 
             }) // close click event listener
 
         } // close for loop to write user cards
@@ -117,9 +124,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                      matchIndustry: matchIndustry, 
                      matchRole: matchRole,
                      matchSize: matchSize,
-                     matchGeogra: matchGeography,
+                     matchGeography: matchGeography,
                      matchEntrepreneur: matchEntrepreneur
                  })
+                 alert(`${matchName} was saved!`)
+                 saveButtonClicked(matchID) 
             }) // close click event listener
 
         } // close for loop to write user cards
@@ -166,9 +175,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                         matchIndustry: matchIndustry, 
                         matchRole: matchRole,
                         matchSize: matchSize,
-                        matchGeogra: matchGeography,
+                        matchGeography: matchGeography,
                         matchEntrepreneur: matchEntrepreneur
                     })
+                    alert(`${matchName} was saved!`)
+                    saveButtonClicked(matchID) 
             }) // close click event listener
 
         } // close for loop to write user cards
@@ -215,9 +226,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                         matchIndustry: matchIndustry, 
                         matchRole: matchRole,
                         matchSize: matchSize,
-                        matchGeogra: matchGeography,
+                        matchGeography: matchGeography,
                         matchEntrepreneur: matchEntrepreneur
                     })
+                    alert(`${matchName} was saved!`)
+                    saveButtonClicked(matchID) 
             }) // close click event listener
 
         } // close for loop to write user cards
@@ -264,9 +277,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                         matchIndustry: matchIndustry, 
                         matchRole: matchRole,
                         matchSize: matchSize,
-                        matchGeogra: matchGeography,
+                        matchGeography: matchGeography,
                         matchEntrepreneur: matchEntrepreneur
                     })
+                    alert(`${matchName} was saved!`)
+                    saveButtonClicked(matchID) 
             }) // close click event listener
 
         } // close for loop to write user cards

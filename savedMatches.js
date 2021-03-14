@@ -1,5 +1,5 @@
 // function to render matches
-function renderMatch(matchID, matchName, matchEmail, matchIndustry, matchRole, matchSize, matchGeography, matchEntrepreneur){
+function renderSavedMatch(matchID, matchName, matchEmail, matchIndustry, matchRole, matchSize, matchGeography, matchEntrepreneur){
     document.querySelector('.matches').insertAdjacentHTML('beforeend',`
     <div class="match-${matchID} w-full m-4 border-4 border-gray-800 text-xs">
         <div class="text-center font-bold m-1">${matchName}</h1>
@@ -10,10 +10,15 @@ function renderMatch(matchID, matchName, matchEmail, matchIndustry, matchRole, m
         <div class="m-1 text-left">Geo: ${matchGeography}</div>
         <div class="m-1 text-left">Entrepreneur?: ${matchEntrepreneur}</div>
         <button class="save-button-${matchID} text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500">
-            Save match
+            Remove Saved Match
         </button>
     </div>
     `)
+}
+
+// function to change opacity of remove save button
+function saveButtonClicked(savedID) { 
+    document.querySelector(`.save-button-${savedID}`).classList.add('opacity-20')
 }
 
 // Event listener for authenticated user
@@ -41,8 +46,19 @@ firebase.auth().onAuthStateChanged(async function(user) {
             let savedEntrepreneur = saved.matchEntrepreneur
 
             // RenderMatch
-            renderMatch(savedID, savedName, savedEmail, savedIndustry, 
+            renderSavedMatch(savedID, savedName, savedEmail, savedIndustry, 
                 savedRole, savedSize, savedGeography, savedEntrepreneur)
-        }
+            
+            // 🛑 🛑 Work in progress to remove saved matches
+            // // Add click listener for save matches: savedId = matchID (from preferences.js)
+            // let unsaveButton = document.querySelector(`.save-button-${savedID}`)
+            // unsaveButton.addEventListener('click', async function(event) {
+            //     event.preventDefault()
+            //     let db = firebase.firestore()
+            //     await db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+            //     alert(`${savedName} was removed.`)
+            //     saveButtonClicked(savedID) 
+            // }) // close click listener
+        } // close for loops
 
 }) // end auth listener
