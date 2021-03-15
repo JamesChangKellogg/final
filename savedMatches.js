@@ -23,19 +23,22 @@ function saveButtonClicked(savedID) {
 
 // Event listener for authenticated user
 firebase.auth().onAuthStateChanged(async function(user) {
-
+    if (user) {
     // Create variables for all of logged-in user's data
     let userID = user.uid
     let db = firebase.firestore()      // Get firebase
 
     // Query Snapshot all of users saved matches
-    let querySnapshot = await db.collection('savedMatches').where('userID', '==', userID).get()
-    let savedMatchesDocs = querySnapshot.docs
+    // let querySnapshot = await db.collection('savedMatches').where('userID', '==', userID).get()
+    // let savedMatchesDocs = querySnapshot.docs
+    let response = await fetch(`/.netlify/functions/get_matches?userId=${userID}`)
+    let savedMatchesDocs = await response.json()
+    
     console.log(savedMatchesDocs.length) 
 
         // For loop to go through docs and get data
         for (let i=0; i<savedMatchesDocs.length; i++) {
-            let saved = savedMatchesDocs[i].data() // saved-level data
+            let saved = savedMatchesDocs[i] // saved-level data
             let savedID = saved.matchID
             let savedName = saved.matchName 
             let savedEmail = saved.matchEmail 
@@ -61,4 +64,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
         } // close for loops
 
+        } else {
+            let ui = new firebaseui.auth.AuthUI(firebase.auth())
+            let authUIConfig = {
+                signInOptions: [
+                  firebase.auth.EmailAuthProvider.PROVIDER_ID
+                ],
+                signInSuccessUrl: 'homepage.html'
+            }
+            ui.start('.sign-in-or-sign-out', authUIConfig)
+        }
 }) // end auth listener
