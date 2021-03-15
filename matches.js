@@ -24,41 +24,26 @@ function saveButtonClicked(matchID) {
 
 // Event listener for authenticated user
 firebase.auth().onAuthStateChanged(async function(user) {
-
+    if (user) {
     // Create variables for all of logged-in user's data
     let userID = user.uid
-    let db = firebase.firestore()      // Get firebase
-    let userRef = await db.collection('preferences').doc(user.uid).get()
-    let userRefData = userRef.data()
-    let userMatchingFactor = userRefData.matchingFactor
-    let userIndustry = userRefData.industry
-    let userRole = userRefData.role
-    let userSize = userRefData.size
-    let userGeography = userRefData.geography
-    let userEntrepreneur = userRefData.entrepreneur
+    let response = await fetch(`/.netlify/functions/get_matches?userId=${userID}`)
+    let matchesDocs = await response.json()
 
-    // 🟢 START: 1️⃣ of 5️⃣ if statements: Industry
-    if (userMatchingFactor = "industry"){
-        let db = firebase.firestore()   // Get firebase
-        // Query where industry preferences are the same as the user's
-        let querySnapshot = await db.collection('preferences').where('industry', '==', userIndustry).get()
-        let matchesDocs = querySnapshot.docs 
+    for (let i=0; i<matchesDocs.length; i++) {
+            let match = matchesDocs[i] // Match-level data
+            let matchID = match.matchID
+            let matchName = match.matchName
+            let matchEmail = match.matchEmail 
+            let matchIndustry = match.matchIndustry 
+            let matchRole = match.matchRole
+            let matchSize = match.matchsize 
+            let matchGeography = match.matchGeography
+            let matchEntrepreneur = match.matchEntrepreneur
 
-        // For loop to go through docs and get data
-        for (let i=0; i<matchesDocs.length; i++) {
-            let match = matchesDocs[i].data() // Match-level data
-            let matchID = match.userID
-            let matchName = match.name 
-            let matchEmail = match.email 
-            let matchIndustry = match.industry 
-            let matchRole = match.role 
-            let matchSize = match.size 
-            let matchGeography = match.geography
-            let matchEntrepreneur = match.entrepreneur
-
-            // RenderMatch
-            renderMatch(matchID, matchName, matchEmail, matchIndustry, 
-                matchRole, matchSize, matchGeography, matchEntrepreneur)
+    // Function to render matches
+    renderMatch(matchID, matchName, matchEmail, matchIndustry, 
+        matchRole, matchSize, matchGeography, matchEntrepreneur)
 
             // Add click listener for save matches
             let saveButton = document.querySelector(`.save-button-${matchID}`)
@@ -79,220 +64,15 @@ firebase.auth().onAuthStateChanged(async function(user) {
                  alert(`${matchName} was saved!`)
                  saveButtonClicked(matchID) 
             }) // close click event listener
-
-        } // close for loop to write user cards
-
         // Remove user profile
         let userCard = document.querySelector(`.match-${userID}`)
         userCard.style.display ="none"
-    
-    } // 🛑 CLOSE: 1️⃣ of 5️⃣ if statements: Industry
+    } // close for loop
 
-    // 🟢 START: 2️⃣ of 5️⃣ if statements: role
-    else if (userMatchingFactor = "role"){
-        let db = firebase.firestore()   // Get firebase
-        // Query where role preferences are the same as the user's
-        let querySnapshot = await db.collection('preferences').where('role', '==', userRole).get()
-        let matchesDocs = querySnapshot.docs 
-
-        // For loop to go through docs and get data
-        for (let i=0; i<matchesDocs.length; i++) {
-            let match = matchesDocs[i].data() // Match-level data
-            let matchID = match.userID
-            let matchName = match.name 
-            let matchEmail = match.email 
-            let matchIndustry = match.industry 
-            let matchRole = match.role 
-            let matchSize = match.size 
-            let matchGeography = match.geography
-            let matchEntrepreneur = match.entrepreneur
-
-            // RenderMatch
-            renderMatch(matchID, matchName, matchEmail, matchIndustry, 
-                matchRole, matchSize, matchGeography, matchEntrepreneur)
-
-            // Add click listener for save matches
-            let saveButton = document.querySelector(`.save-button-${matchID}`)
-            saveButton.addEventListener('click', async function(event) {
-                event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${matchID}`).set({
-                     userID: userID,
-                     matchID: matchID,
-                     matchName: matchName,
-                     matchEmail:  matchEmail,
-                     matchIndustry: matchIndustry, 
-                     matchRole: matchRole,
-                     matchSize: matchSize,
-                     matchGeography: matchGeography,
-                     matchEntrepreneur: matchEntrepreneur
-                 })
-                 alert(`${matchName} was saved!`)
-                 saveButtonClicked(matchID) 
-            }) // close click event listener
-
-        } // close for loop to write user cards
-
-        // Remove user profile
-        let userCard = document.querySelector(`.match-${userID}`)
-        userCard.style.display ="none"
-    
-    } // 🛑 CLOSE: 2️⃣ of 5️⃣ if statements: role
-
-    // 🟢 START: 3️⃣ of 5️⃣ if statements: size
-    else if (userMatchingFactor = "size"){
-        let db = firebase.firestore()   // Get firebase
-        // Query where size preferences are the same as the user's
-        let querySnapshot = await db.collection('preferences').where('size', '==', userSize).get()
-        let matchesDocs = querySnapshot.docs 
-
-        // For loop to go through docs and get data
-        for (let i=0; i<matchesDocs.length; i++) {
-            let match = matchesDocs[i].data() // Match-level data
-            let matchID = match.userID
-            let matchName = match.name 
-            let matchEmail = match.email 
-            let matchIndustry = match.industry 
-            let matchRole = match.role 
-            let matchSize = match.size 
-            let matchGeography = match.geography
-            let matchEntrepreneur = match.entrepreneur
-
-            // RenderMatch
-            renderMatch(matchID, matchName, matchEmail, matchIndustry, 
-                matchRole, matchSize, matchGeography, matchEntrepreneur)
-
-            // Add click listener for save matches
-            let saveButton = document.querySelector(`.save-button-${matchID}`)
-            saveButton.addEventListener('click', async function(event) {
-                event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${matchID}`).set({
-                        userID: userID,
-                        matchID: matchID,
-                        matchName: matchName,
-                        matchEmail:  matchEmail,
-                        matchIndustry: matchIndustry, 
-                        matchRole: matchRole,
-                        matchSize: matchSize,
-                        matchGeography: matchGeography,
-                        matchEntrepreneur: matchEntrepreneur
-                    })
-                    alert(`${matchName} was saved!`)
-                    saveButtonClicked(matchID) 
-            }) // close click event listener
-
-        } // close for loop to write user cards
-
-        // Remove user profile
-        let userCard = document.querySelector(`.match-${userID}`)
-        userCard.style.display ="none"
-    
-    } // 🛑 CLOSE: 3️⃣ of 5️⃣ if statements: size
-
-    // 🟢 START: 4️⃣ of 5️⃣ if statements: geography
-    else if (userMatchingFactor = "geography"){
-        let db = firebase.firestore()   // Get firebase
-        // Query where geography preferences are the same as the user's
-        let querySnapshot = await db.collection('preferences').where('geography', '==', userGeography).get()
-        let matchesDocs = querySnapshot.docs 
-
-        // For loop to go through docs and get data
-        for (let i=0; i<matchesDocs.length; i++) {
-            let match = matchesDocs[i].data() // Match-level data
-            let matchID = match.userID
-            let matchName = match.name 
-            let matchEmail = match.email 
-            let matchIndustry = match.industry 
-            let matchRole = match.role 
-            let matchSize = match.size 
-            let matchGeography = match.geography
-            let matchEntrepreneur = match.entrepreneur
-
-            // RenderMatch
-            renderMatch(matchID, matchName, matchEmail, matchIndustry, 
-                matchRole, matchSize, matchGeography, matchEntrepreneur)
-
-            // Add click listener for save matches
-            let saveButton = document.querySelector(`.save-button-${matchID}`)
-            saveButton.addEventListener('click', async function(event) {
-                event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${matchID}`).set({
-                        userID: userID,
-                        matchID: matchID,
-                        matchName: matchName,
-                        matchEmail:  matchEmail,
-                        matchIndustry: matchIndustry, 
-                        matchRole: matchRole,
-                        matchSize: matchSize,
-                        matchGeography: matchGeography,
-                        matchEntrepreneur: matchEntrepreneur
-                    })
-                    alert(`${matchName} was saved!`)
-                    saveButtonClicked(matchID) 
-            }) // close click event listener
-
-        } // close for loop to write user cards
-
-        // Remove user profile
-        let userCard = document.querySelector(`.match-${userID}`)
-        userCard.style.display ="none"
-    
-    } // 🛑 CLOSE: 4️⃣ of 5️⃣ if statements: geography
-
-    // 🟢 START: 5️⃣ of 5️⃣ if statements: entrepreneur
-    else if (userMatchingFactor = "entrepreneur"){
-        let db = firebase.firestore()   // Get firebase
-        // Query where entrepreneur preferences are the same as the user's
-        let querySnapshot = await db.collection('preferences').where('entrepreneur', '==', userEntrepreneur).get()
-        let matchesDocs = querySnapshot.docs 
-
-        // For loop to go through docs and get data
-        for (let i=0; i<matchesDocs.length; i++) {
-            let match = matchesDocs[i].data() // Match-level data
-            let matchID = match.userID
-            let matchName = match.name 
-            let matchEmail = match.email 
-            let matchIndustry = match.industry 
-            let matchRole = match.role 
-            let matchSize = match.size 
-            let matchGeography = match.geography
-            let matchEntrepreneur = match.entrepreneur
-
-            // RenderMatch
-            renderMatch(matchID, matchName, matchEmail, matchIndustry, 
-                matchRole, matchSize, matchGeography, matchEntrepreneur)
-
-            // Add click listener for save matches
-            let saveButton = document.querySelector(`.save-button-${matchID}`)
-            saveButton.addEventListener('click', async function(event) {
-                event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${matchID}`).set({
-                        userID: userID,
-                        matchID: matchID,
-                        matchName: matchName,
-                        matchEmail:  matchEmail,
-                        matchIndustry: matchIndustry, 
-                        matchRole: matchRole,
-                        matchSize: matchSize,
-                        matchGeography: matchGeography,
-                        matchEntrepreneur: matchEntrepreneur
-                    })
-                    alert(`${matchName} was saved!`)
-                    saveButtonClicked(matchID) 
-            }) // close click event listener
-
-        } // close for loop to write user cards
-
-        // Remove user profile
-        let userCard = document.querySelector(`.match-${userID}`)
-        userCard.style.display ="none"
-    
-    } //🛑 CLOSE Close 5️⃣ of 5️⃣ if statements: entrepreneur
-
-
+  
+    } else {
+        document.location.href="homepage.html"
+    }
 
 // end event listener for authenticated user
 })
