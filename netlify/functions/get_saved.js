@@ -3,6 +3,7 @@ let firebase = require('./firebase')
 exports.handler = async function(event) {
   let queryStringUserId = event.queryStringParameters.userId
 
+  // created savedMatches object
   let savedMatches = []
 
   let db = firebase.firestore()
@@ -13,9 +14,17 @@ exports.handler = async function(event) {
   let savedID = querySavedMatches[i].id
   let saved = querySavedMatches[i].data()
 
+  // Push attributes of savedMatches
   savedMatches.push({
-    id: savedID,
-    text: saved.matchName
+    userID: saved.userID,
+    savedID: saved.matchID,
+    savedName: saved.matchName,
+    savedEmail:  saved.matchEmail,
+    savedIndustry: saved.matchIndustry, 
+    savedRole: saved.matchRole,
+    savedSize: saved.matchSize,
+    savedGeography: saved.matchGeography,
+    savedEntrepreneur: saved.matchEntrepreneur
   })
 }
   

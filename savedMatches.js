@@ -31,7 +31,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Query Snapshot all of users saved matches
     // let querySnapshot = await db.collection('savedMatches').where('userID', '==', userID).get()
     // let savedMatchesDocs = querySnapshot.docs
-    let response = await fetch(`/.netlify/functions/get_matches?userId=${userID}`)
+    let response = await fetch(`/.netlify/functions/get_saved?userId=${userID}`)
     let savedMatchesDocs = await response.json()
     
     console.log(savedMatchesDocs.length) 
@@ -65,13 +65,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
         } // close for loops
 
         } else {
-            let ui = new firebaseui.auth.AuthUI(firebase.auth())
-            let authUIConfig = {
-                signInOptions: [
-                  firebase.auth.EmailAuthProvider.PROVIDER_ID
-                ],
-                signInSuccessUrl: 'homepage.html'
-            }
-            ui.start('.sign-in-or-sign-out', authUIConfig)
+            document.location.href="homepage.html"
         }
 }) // end auth listener
