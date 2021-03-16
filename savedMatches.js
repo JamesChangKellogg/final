@@ -9,9 +9,6 @@ function renderSavedMatch(matchID, matchName, matchEmail, matchIndustry, matchRo
         <div class="m-1 text-left">Company size: ${matchSize}</div>
         <div class="m-1 text-left">Geo: ${matchGeography}</div>
         <div class="m-1 text-left">Entrepreneur?: ${matchEntrepreneur}</div>
-        <button class="save-button-${matchID} text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500">
-            Remove Saved Buddy
-        </button>
     </div>
     `)
 }
