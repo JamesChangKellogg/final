@@ -9,6 +9,9 @@ function renderSavedMatch(matchID, matchName, matchEmail, matchIndustry, matchRo
         <div class="m-1 text-left">Company size: ${matchSize}</div>
         <div class="m-1 text-left">Geo: ${matchGeography}</div>
         <div class="m-1 text-left">Entrepreneur?: ${matchEntrepreneur}</div>
+        <button class="save-button-${matchID} text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500">
+            Remove Saved Buddy
+        </button>
     </div>
     `)
 }
@@ -45,18 +48,18 @@ firebase.auth().onAuthStateChanged(async function(user) {
             renderSavedMatch(savedID, savedName, savedEmail, savedIndustry, 
                 savedRole, savedSize, savedGeography, savedEntrepreneur)
             
-            // Add click listener for save matches: savedID = matchID (from preferences.js)
-            let unsaveButton = document.querySelector(`.save-button-${savedID}`)
-            unsaveButton.addEventListener('click', async function(event) {
-                event.preventDefault()
-                let response = await fetch(`/.netlify/functions/delete_saved?userId=${userID}`)
-            })
+            // // Add click listener for save matches: savedID = matchID (from preferences.js)
+            // let unsaveButton = document.querySelector(`.save-button-${savedID}`)
+            // unsaveButton.addEventListener('click', async function(event) {
+            //     event.preventDefault()
+            //     let response = await fetch(`/.netlify/functions/delete_saved?userId=${userID}?savedId=${savedID}`)
+            // })
 
-            //     let db = firebase.firestore()
-            //     db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
-            //     alert(`${savedName} is removed!`)
-            //     saveButtonClicked(savedID)
-            // }) // close event listener
+            // //     let db = firebase.firestore()
+            // //     db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+            // //     alert(`${savedName} is removed!`)
+            // //     saveButtonClicked(savedID)
+            // // }) // close event listener
 
         } // close for loops
 
