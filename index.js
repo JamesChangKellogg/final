@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         document.querySelector('.sign-out').addEventListener('click', function(event) {
             console.log('sign out clicked')
             firebase.auth().signOut()
-            document.location.href = 'homepage.html'
+            document.location.href = 'index.html'
         })
 
         // Add buttons
@@ -50,7 +50,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
             signInOptions: [
               firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
-            signInSuccessUrl: 'homepage.html'
+            signInSuccessUrl: 'index.html'
         }
         ui.start('.sign-in-or-sign-out', authUIConfig)
 

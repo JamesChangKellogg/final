@@ -7,7 +7,7 @@ exports.handler = async function(event) {
     // logged in user id
   let queryStringUserId = event.queryStringParameters.userId
 
-    // logged in user preferences
+    // Get data for logged in user for preferences collection
   let db = firebase.firestore()
   let querySnapshot = await db.collection('preferences').doc(queryStringUserId).get()
   let userRefData = querySnapshot.data()
