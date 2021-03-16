@@ -30,6 +30,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let response = await fetch(`/.netlify/functions/get_matches?userId=${userID}`)
     let matchesDocs = await response.json()
 
+    // For loop to collect data and render matches
     for (let i=0; i<matchesDocs.length; i++) {
             let match = matchesDocs[i] // Match-level data
             let matchID = match.matchID
@@ -37,7 +38,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
             let matchEmail = match.matchEmail 
             let matchIndustry = match.matchIndustry 
             let matchRole = match.matchRole
-            let matchSize = match.matchsize 
+            let matchSize = match.matchSize 
             let matchGeography = match.matchGeography
             let matchEntrepreneur = match.matchEntrepreneur
 
@@ -45,32 +46,38 @@ firebase.auth().onAuthStateChanged(async function(user) {
     renderMatch(matchID, matchName, matchEmail, matchIndustry, 
         matchRole, matchSize, matchGeography, matchEntrepreneur)
 
-            // Add click listener for save matches
+            // // Add click listener for save matches
             let saveButton = document.querySelector(`.save-button-${matchID}`)
             saveButton.addEventListener('click', async function(event) {
                 event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${matchID}`).set({
-                     userID: userID,
-                     matchID: matchID,
-                     matchName: matchName,
-                     matchEmail:  matchEmail,
-                     matchIndustry: matchIndustry, 
-                     matchRole: matchRole,
-                     matchSize: matchSize,
-                     matchGeography: matchGeography,
-                     matchEntrepreneur: matchEntrepreneur
-                 })
-                 alert(`${matchName} was saved!`)
-                 saveButtonClicked(matchID) 
-            }) // close click event listener
+
+                // interact with create_save backend
+                let response = await fetch('/.netlify/functions/create_save', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        userID: userID,
+                        matchID: matchID,
+                        matchName: matchName,
+                        matchEmail:  matchEmail,
+                        matchIndustry: matchIndustry, 
+                        matchRole: matchRole,
+                        matchSize: matchSize,
+                        matchGeography: matchGeography,
+                        matchEntrepreneur: matchEntrepreneur
+                    })
+                })
+                alert(`${matchName} saved!`)
+                saveButtonClicked(matchID)
+            })
         // Remove user profile
         let userCard = document.querySelector(`.match-${userID}`)
-        userCard.style.display ="none"
-    } // close for loop
-
+        if(userCard){
+            userCard.style.display ="none"
+            } // close if statement 
+        } // close for loop
+    } // close if statement
   
-    } else {
+    else {
         document.location.href="homepage.html"
     }
 
