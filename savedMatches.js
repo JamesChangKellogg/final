@@ -49,8 +49,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
             let unsaveButton = document.querySelector(`.save-button-${savedID}`)
             unsaveButton.addEventListener('click', async function(event) {
                 event.preventDefault()
-                let response = await fetch(`/.netlify/functions/get_savedMatches?userId=${userID}`)
-                let savedMatchesDocs = await response.json()
+                let response = await fetch(`/.netlify/functions/delete_saved?userId=${userID}`)
+            })
 
             //     let db = firebase.firestore()
             //     db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
