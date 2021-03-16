@@ -9,9 +9,6 @@ function renderSavedMatch(matchID, matchName, matchEmail, matchIndustry, matchRo
         <div class="m-1 text-left">Company size: ${matchSize}</div>
         <div class="m-1 text-left">Geo: ${matchGeography}</div>
         <div class="m-1 text-left">Entrepreneur?: ${matchEntrepreneur}</div>
-        <button class="save-button-${matchID} text-white bg-purple-900 rounded-xl font-bold text-center border-2 px-2 py-2 border-purple-500">
-            Remove Saved Buddy
-        </button>
     </div>
     `)
 }
@@ -26,12 +23,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
     if (user) {
     // Create variables for all of logged-in user's data
     let userID = user.uid
-    let db = firebase.firestore()      // Get firebase
 
-    // Query Snapshot all of users saved matches
-    // let querySnapshot = await db.collection('savedMatches').where('userID', '==', userID).get()
-    // let savedMatchesDocs = querySnapshot.docs
-    let response = await fetch(`/.netlify/functions/get_saved?userId=${userID}`)
+    let response = await fetch(`/.netlify/functions/get_savedMatches?userId=${userID}`)
     let savedMatchesDocs = await response.json()
     
     console.log(savedMatchesDocs.length) 
@@ -39,32 +32,35 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // For loop to go through docs and get data
         for (let i=0; i<savedMatchesDocs.length; i++) {
             let saved = savedMatchesDocs[i] // saved-level data
-            let savedID = saved.matchID
-            let savedName = saved.matchName 
-            let savedEmail = saved.matchEmail 
-            let savedIndustry = saved.matchIndustry 
-            let savedRole = saved.matchRole 
-            let savedSize = saved.matchSize 
-            let savedGeography = saved.matchGeography
-            let savedEntrepreneur = saved.matchEntrepreneur
+            let savedID = saved.savedID
+            let savedName = saved.savedName 
+            let savedEmail = saved.savedEmail 
+            let savedIndustry = saved.savedIndustry 
+            let savedRole = saved.savedRole 
+            let savedSize = saved.savedSize 
+            let savedGeography = saved.savedGeography
+            let savedEntrepreneur = saved.savedEntrepreneur
 
             // RenderMatch
             renderSavedMatch(savedID, savedName, savedEmail, savedIndustry, 
                 savedRole, savedSize, savedGeography, savedEntrepreneur)
             
-            // // Add click listener for save matches: savedID = matchID (from preferences.js)
+            // Add click listener for save matches: savedID = matchID (from preferences.js)
             let unsaveButton = document.querySelector(`.save-button-${savedID}`)
             unsaveButton.addEventListener('click', async function(event) {
                 event.preventDefault()
-                let db = firebase.firestore()
-                db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
-                alert(`${savedName} is removed!`)
-                saveButtonClicked(savedID)
-            }) // close event listener
+                let response = await fetch(`/.netlify/functions/get_savedMatches?userId=${userID}`)
+                let savedMatchesDocs = await response.json()
+
+            //     let db = firebase.firestore()
+            //     db.collection('savedMatches').doc(`${userID}-${savedID}`).delete()
+            //     alert(`${savedName} is removed!`)
+            //     saveButtonClicked(savedID)
+            // }) // close event listener
 
         } // close for loops
 
         } else {
-            document.location.href="homepage.html"
+            document.location.href="index.html"
         }
 }) // end auth listener
